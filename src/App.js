@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react';
+import { Container } from 'reactstrap';
+import { Route, Switch } from 'react-router-dom';
+
+import Toolbar from './components/UI/Toolbar/Toolbar';
+import Artists from "./containers/Artists/Artists";
+import Albums from "./containers/Albums/Albums";
+import Tracks from "./containers/Tracks/Tracks";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <Fragment>
+        <header>
+          <Toolbar/>
         </header>
-      </div>
+        <Container>
+          <Switch>
+            <Route path='/' exact component={Artists}/>
+            <Route path='/artists/:id' exact component={Albums}/>
+            <Route path='/albums/:id' exact component={Tracks}/>
+          </Switch>
+        </Container>
+      </Fragment>
     );
   }
 }
