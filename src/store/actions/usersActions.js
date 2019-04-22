@@ -33,21 +33,17 @@ export const registerUser = (userData) => {
 }
 
 export const getUser = () => {
-    return JSON.parse(localStorage.getItem('musicUser'));
+    return localStorage.getItem('musicUser') ? JSON.parse(localStorage.getItem('musicUser')) : null;
 }
 
 export const getToken = () => {
     const user = getUser();
-    return user.token;
+    return user ? user.token : null;
 }
 
 const saveUserToLocalStorage = (user) => {
     localStorage.setItem('musicUser', JSON.stringify(user))
 };
-
-export const logOut = () => {
-    localStorage.clear();
-}
 
 export const loginUser = userData => {
     return (dispatch) => {
