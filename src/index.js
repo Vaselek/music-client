@@ -12,6 +12,8 @@ import * as serviceWorker from './serviceWorker';
 import artistsReducer from "./store/reducers/artistsReducer";
 import albumsReducer from "./store/reducers/albumsReducer";
 import trackReducer from "./store/reducers/tracksReducer";
+import usersReducer from "./store/reducers/usersReducer";
+import trackHistoriesReducer from "./store/reducers/trackHistoriesReducer";
 
 const history = createBrowserHistory();
 
@@ -19,7 +21,9 @@ const rootReducer = combineReducers({
     router: connectRouter(history),
     artists: artistsReducer,
     albums: albumsReducer,
-    tracks: trackReducer
+    tracks: trackReducer,
+    users: usersReducer,
+    trackHistories: trackHistoriesReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

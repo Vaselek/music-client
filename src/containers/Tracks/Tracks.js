@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import connect from "react-redux/es/connect/connect";
-import {fetchAlbumTracks} from "../../store/actions/tracksActions";
+import {addToHistory, fetchAlbumTracks} from "../../store/actions/tracksActions";
 import Track from "../../components/Track/Track";
 
 class Tracks extends Component {
@@ -9,6 +9,10 @@ class Tracks extends Component {
         this.props.match.params.id && this.props.fetchAlbumTracks(this.props.match.params.id);
     };
 
+    addToHistory = (id) => {
+        this.props.addToHistory(id)
+    }
+
     render() {
         return (
             <Fragment>
@@ -16,10 +20,11 @@ class Tracks extends Component {
                 <h5>{this.props.albumTitle}</h5>
                 {this.props.tracks.map(track => (
                     <Track key={track._id}
-                           _id={track._id}
+                           id={track._id}
                            title={track.title}
                            duration={track.duration}
                            sequence={track.sequence}
+                           addToHistory={this.addToHistory}
                     />
                 ))}
             </Fragment>
@@ -34,7 +39,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAlbumTracks: (albumId) => dispatch(fetchAlbumTracks(albumId))
+    fetchAlbumTracks: (albumId) => dispatch(fetchAlbumTracks(albumId)),
+    addToHistory: (trackId) => dispatch(addToHistory(trackId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tracks);

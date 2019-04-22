@@ -1,28 +1,27 @@
 import React from 'react';
-import {Button, Card, CardBody} from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 import PropTypes from 'prop-types';
 
 
-const Track = (props) => {
+const TrackHistory = (props) => {
     return (
         <Card style={{marginBottom: '10px'}}>
             <CardBody>
                 <div>
-                    <p><b>{props.title}</b></p>
-                    <p>Duration: {props.duration}</p>
-                    <p>Track Number: {props.sequence}</p>
+                    <p>Track title: <b>{props.title}</b></p>
+                    <p>You've listened it at: {props.dateTime}</p>
+                    <p>Track Artist: {props.artist}</p>
                 </div>
-                <Button onClick={()=>props.addToHistory(props.id)}>Add to history</Button>
             </CardBody>
         </Card>
     );
 };
 
-Track.propTypes = {
+TrackHistory.propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     duration: PropTypes.number.isRequired,
     addToHistory: PropTypes.func.isRequired,
 };
 
-export default Track;
+export default TrackHistory;
