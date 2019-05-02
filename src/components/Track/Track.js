@@ -2,10 +2,12 @@ import React from 'react';
 import {Button, Card, CardBody} from "reactstrap";
 import PropTypes from 'prop-types';
 
+import '../../App.css';
+
 
 const Track = (props) => {
     return (
-        <Card style={{marginBottom: '10px'}}>
+        <Card className='Card'>
             <CardBody>
                 <div>
                     <p><b>{props.title}</b></p>
@@ -14,6 +16,10 @@ const Track = (props) => {
                 </div>
                 <Button onClick={()=>props.addToHistory(props.id)}>Add to history</Button>
             </CardBody>
+            { props.isAdminView && (<div>
+                <div><Button onClick={props.deleteTrack} className='Artist-btn btn-danger'>Delete</Button></div>
+                { !props.published && <div><Button onClick={props.publish} className='Artist-btn'>Publish</Button></div> }
+            </div>) }
         </Card>
     );
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import Thumbnail from "../Thumbnail/Thumbnail";
 import {Link} from "react-router-dom";
-import {Card, CardBody, CardText} from "reactstrap";
+import {Button, Card, CardBody, CardText} from "reactstrap";
 import PropTypes from 'prop-types';
+import '../../App.css'
 
 const getYear = (timestamp) => {
     const date = new Date(timestamp);
@@ -11,7 +12,7 @@ const getYear = (timestamp) => {
 
 const Album = (props) => {
     return (
-        <Card style={{marginBottom: '10px'}}>
+        <Card className='Card'>
             <CardBody style={{ display: 'flex' }}>
                 <Thumbnail image={props.image}/>
                 <div>
@@ -19,8 +20,13 @@ const Album = (props) => {
                         {props.title}
                     </Link>
                     <CardText>Issued at: {getYear(props.issuedAt)}</CardText>
+                    { !props.published && <div><i>Not published yet!</i></div> }
                 </div>
             </CardBody>
+            { props.isAdminView && (<div>
+                <div><Button onClick={props.deleteAlbum} className='Artist-btn btn-danger'>Delete</Button></div>
+                { !props.published && <div><Button onClick={props.publish} className='Artist-btn'>Publish</Button></div> }
+            </div>) }
         </Card>
     );
 };

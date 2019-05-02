@@ -1,41 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
-import { createBrowserHistory } from 'history';
-import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router';
-
+import { ConnectedRouter } from 'connected-react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import artistsReducer from "./store/reducers/artistsReducer";
-import albumsReducer from "./store/reducers/albumsReducer";
-import trackReducer from "./store/reducers/tracksReducer";
-import usersReducer from "./store/reducers/usersReducer";
-import trackHistoriesReducer from "./store/reducers/trackHistoriesReducer";
-
-const history = createBrowserHistory();
-
-const rootReducer = combineReducers({
-    router: connectRouter(history),
-    artists: artistsReducer,
-    albums: albumsReducer,
-    tracks: trackReducer,
-    users: usersReducer,
-    trackHistories: trackHistoriesReducer
-});
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const middleware = [
-    thunkMiddleware,
-    routerMiddleware(history)
-];
-
-const enhancers = composeEnhancers(applyMiddleware(...middleware));
-
-const store = createStore(rootReducer, enhancers);
+import store, {history} from './store/configureStore';
 
 const app = (
     <Provider store={store}>

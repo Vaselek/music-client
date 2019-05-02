@@ -31,6 +31,16 @@ const Toolbar = ({user}) => {
                             <NavItem>
                                 <NavLink tag={RouterNavLink} to="/track-histories" exact>Track History</NavLink>
                             </NavItem>
+                            { user.role === 'admin' &&
+                            (<Fragment><NavItem>
+                                <NavLink tag={RouterNavLink} to="/artists/new" exact>Add Artist</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={RouterNavLink} to="/albums/new" exact>Add Album</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={RouterNavLink} to="/tracks/new" exact>Add Track</NavLink>
+                            </NavItem></Fragment>) }
                             <UncontrolledButtonDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
                                     Hello, {user.username}
