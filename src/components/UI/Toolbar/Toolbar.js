@@ -11,6 +11,7 @@ import {
     UncontrolledButtonDropdown
 } from "reactstrap";
 import { NavLink as RouterNavLink } from 'react-router-dom';
+import {apiURL} from "../../../constants";
 
 const logOut = () => {
     localStorage.clear();
@@ -18,6 +19,10 @@ const logOut = () => {
 }
 
 const Toolbar = ({user}) => {
+    let avatar;
+    if (user && user.avatar) {
+        avatar = apiURL + '/uploads/' + user.avatar;
+    }
     return (
         <div>
             <Navbar color='light' light expand='md'>
@@ -43,7 +48,8 @@ const Toolbar = ({user}) => {
                             </NavItem></Fragment>) }
                             <UncontrolledButtonDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    Hello, {user.username}
+                                    { avatar && <img src={avatar} style={{width: '25px', height: '25px'}} className="img-thumbnail" alt="user"/> }
+                                    Hello, {user.displayName}
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>Show Profile</DropdownItem>

@@ -3,11 +3,14 @@ import {Alert, Button, Col, Form, FormGroup} from "reactstrap";
 import {connect} from "react-redux";
 import FormElement from "../../components/UI/Form/FormElement";
 import {registerUser} from "../../store/actions/usersActions";
+import FacebookLogin from "../../components/FacebookLogin/FacebookLogin";
 
 class Register extends Component {
     state = {
         username: '',
-        password: ''
+        password: '',
+        avatar: null,
+        displayName: ''
     }
 
     inputChangeHandler = e => {
@@ -16,10 +19,22 @@ class Register extends Component {
         })
     };
 
+    fileChangeHandler = event => {
+        this.setState({
+            [event.target.name]: event.target.files[0]
+        })
+    };
+
     submitFormHandler = e => {
         e.preventDefault();
 
-        this.props.registerUser({...this.state})
+        const formData = new FormData();
+
+        Object.keys(this.state).forEach(key => {
+            formData.append(key, this.state[key]);
+        });
+
+        this.props.registerUser(formData)
     }
 
     getFieldError = fieldName => {
@@ -48,6 +63,17 @@ class Register extends Component {
 
                     />
 
+                    <FormElement propertyName='displayName'
+                                 title='Display Name'
+                                 type='text'
+                                 value={this.state.displayName}
+                                 onChange={this.inputChangeHandler}
+                                 error={this.getFieldError('displayName')}
+                                 placeholder='Enter name to display'
+                                 autoComplete='new-displayName'
+
+                    />
+
                     <FormElement propertyName='password'
                                  title='Password'
                                  type='password'
@@ -58,15 +84,22 @@ class Register extends Component {
                                  autoComplete='new password'
 
                     />
+                    <FormElement propertyName='avatar'
+                                 title='Avatar'
+                                 type='file'
+                                 onChange={this.fileChangeHandler}
+                                 error={this.getFieldError('avatar')}
+
+                    />
 
                     <FormGroup row>
                         <Col sm={{ offset: 2, size: 10 }}>
                             <Button type="submit" color="primary">Register</Button>
                         </Col>
                     </FormGroup>
-
-
-
+                    <FormGroup>
+                        <FacebookLogin/>
+                    </FormGroup>
                 </Form>
             </Fragment>
         );

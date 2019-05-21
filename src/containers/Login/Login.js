@@ -3,6 +3,7 @@ import FormElement from "../../components/UI/Form/FormElement";
 import {Alert, Button, Col, Form, FormGroup} from "reactstrap";
 import {connect} from "react-redux";
 import {loginUser} from "../../store/actions/usersActions";
+import FacebookLogin from "../../components/FacebookLogin/FacebookLogin";
 
 class Login extends Component {
     state = {
@@ -53,6 +54,9 @@ class Login extends Component {
                         <Col sm={{ offset: 2, size: 10 }}>
                             <Button type="submit" color="primary">Login</Button>
                         </Col>
+                    </FormGroup>
+                    <FormGroup>
+                        <FacebookLogin/>
                     </FormGroup>
                 </Form>
             </Fragment>
